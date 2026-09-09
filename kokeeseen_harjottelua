@@ -1,0 +1,228 @@
+# KOKEESEEN HARJOTTELUA
+
+print("")
+print("")
+print("LISTAT-osion tulostukset")
+print("")
+# LISTA
+inventaario = ["miekka", "kilpi", "taikajuoma"] # luodaan inventaario
+inventaario.append("kypärä") # lisää loppuun
+inventaario[0] = "kirves"    # muokkaa alkiota
+print(inventaario[0], inventaario[1])   # -> kirves kilpi
+
+
+# TUPLE
+koordinaatit = (10,20)
+print(koordinaatit[0])  # haku toimii
+# koordinaatit[0]= 5    # VIRHE! ei voi muuttaa
+
+
+# DICTIONARY
+pelaaja = {"nimi" : "Tenho", "elämät": 3, "taso": 5}
+print(pelaaja["nimi"], pelaaja["elämät"], pelaaja["taso"])  # hea avaimella
+pelaaja["nimi"] = "Eemil" # muokattava
+pelaaja["elämät"] = 1 # muokattava
+pelaaja["taso"] = 6 # muokattava
+print(pelaaja["nimi"], pelaaja["elämät"], pelaaja["taso"])  # hea avaimella
+
+
+# SET
+esineet = {"miekka", "kilpi", "miekka"} # HUOM 2 kertaa "miekka" samassa
+print(esineet) # EI SALLI KAKSOISKAPPALEITA! -> {"miekka", "kilpi"}
+
+
+print("")
+print("")
+print("FUNKTIOT-osion tulostukset")
+print("")
+# FUNKTIO
+
+# Parametriton funkito, joka palauttaa arvon
+def Tervehdys():
+    return "Hei pelaaja"
+
+print(Tervehdys())
+
+
+# Funktio jolla on parametri (tieto sisään)
+def Tervehdi(nimi):
+    print("Hei", nimi)
+
+Tervehdi("Tenho")
+
+
+# Funktio jolla on monta parametria
+def LaskeSumma(a, b):
+    return a + b
+
+print(LaskeSumma(3, 7)) # a=3, b=7 -> 10
+
+
+# return ANTAA arvon takaisin, jota voi käyttää muualla!
+# print TULOSTAA vain ruudulle eikä palauta mitään!
+def KerroKahdella(x):
+    return x * 2    # palauttaa arvon
+
+tulos = KerroKahdella(4)    # tulos = 8, voidaan tallentaa muuttujaan
+print(tulos)                # -> 8
+
+
+# Funktio joka käyttää listaa parametrina
+def LaskeLista(luvut):
+    summa = 0
+    for luku in luvut:
+        summa = summa + luku
+    return summa
+
+print(LaskeLista([1, 2, 3, 4]))  # -> 10
+
+
+
+print("")
+print("")
+print("IF, ELIF ja ELSE-osion tulostukset")
+print("")
+# IF / ELIF / ELSE (ehtolauseet)
+
+ikä = 15
+
+if ikä < 12:
+    print("Liian nuori")
+elif ikä < 18:
+    print("Nuori")          # tänne mennään, koska 15 < 18
+else:
+    print("Aikuinen")
+
+# if   = tarkistetaan ensimmäinen ehto
+# elif = "else if", tarkistetaan JOS edelliset olivat epätosia
+# else = suoritetaan jos MIKÄÄN yllä ei ollut tosi
+# vain YKSI haara suoritetaan!
+
+
+# VERTAILUOPERAATTORIT
+# ==   yhtä suuri
+# !=   eri suuri
+# <    pienempi kuin
+# >    suurempi kuin
+# <=   pienempi tai yhtä suuri
+# >=   suurempi tai yhtä suuri
+
+luku = 5
+if luku == 5:
+    print("Luku on viisi")   # == vertailu
+
+
+# LOOGISET OPERAATTORIT: and, or, not
+ikä = 20
+jäsen = True
+
+if ikä >= 18 and jäsen:
+    print("Pääsee sisään")       # molempien pitää olla tosia
+
+if ikä < 12 or ikä > 65:
+    print("Alennus")             # riittää että toinen on tosi
+
+if not jäsen:
+    print("Ei ole jäsen")        # not kääntää toisin päin
+
+
+
+
+print("")
+print("")
+print("FOR-osion tulostukset")
+print("")
+# FOR (läpikäyvä toistorakenne)
+
+# Käyn lisan läpi jokainen kerrallaan
+inventaario = ["miekka", "kilpi", "taikajuoma"]
+for esine in inventaario:
+    print(esine)
+# tulostaa jokaisen omalle riville
+
+print("")
+
+# range alku ja loppuarvoilla
+for i in range(1, 6):
+    print(i)
+# tulostaa 1 2 3 4 5, mutta huomioi että 1 on mukana ja 6 ei ole!
+
+print("")
+
+for i in range(5):
+    print(i)
+# tulostaa 0 1 2 3 4, mutta 5 ei ole mukana
+
+
+
+print("")
+print("")
+print("WHILE-osion tulostukset")
+print("")
+
+# WHILE (toistolause)
+
+# Perus while: toistetaan niin kauan kuin ehto on tosi
+luku = 1
+while luku <= 5:
+    print(luku)
+    luku = luku + 1      # MUISTA kasvattaa muuten tulee ikuinen looppi!
+# tulostaa 1 2 3 4 5
+
+print("")
+print("")
+
+# while True + break = toistetaan kunnes break lopettaa
+while True:
+    vastaus = input("Kirjoita (lopeta) lopettaaksesi while loopin: ")
+    if vastaus == "lopeta":
+        break            # break lopettaa loopin
+    print("Jatketaan salasana osioon")
+
+
+# laskuri while-loopilla
+salasana = ""
+while salasana != "salasana": # niin kauan kun salasana ei ole "salasana" niin looppi jatkuu
+    salasana = input("Anna salasana (salasana) : ")
+print("Oikein!")
+
+
+# WHILE-osion lopussa kysytään siirtymistä import-osioon
+while True:
+    siirry = input("Siirrytäänkö Import-osioon? (kyllä/ei) ")
+    if siirry == "kyllä":
+        print("Siirrytään Import-osioon!")
+        break
+    elif siirry == "ei":
+        print("Jäädään tänne.")
+        break
+    else:
+        print("Vastaa kyllä tai ei.")
+
+
+
+
+print("")
+print("")
+print("IMPORT-osion tulostukset")
+print("")
+print("Tässä muutama import mitä käyty läpi! Katso mitä eri kohdat tulostaa")
+
+# IMPORT MATH (matematiikka)
+import math
+
+print(math.pi)          # piin arvo -> 3.14159
+print(math.sqrt(16))    # neliöjuuri -> 4.0
+print(math.floor(4.7))  # pyöristä ALAS -> 4
+print(math.ceil(4.2))   # pyöristä YLÖS -> 5
+
+
+# IMPORT RANDOM (satunnaisuus)
+import random
+
+print(random.randint(1,6))      # kokonaisluku 1-6 (molemmat mukana)
+print(random.random())          # desimaali 0.0 - 1.0
+lista = ["miekka", "kilpi", "jousi"]
+print(random.choice(lista))     # arpoo yhden alkion listasta
+random.shuffle(lista)           # sekoittaa listan järjestyksen
+print(lista)                    # tulostaa sekoitetun listan
