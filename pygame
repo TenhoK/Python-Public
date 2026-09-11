@@ -1,0 +1,59 @@
+import pygame
+import random
+
+pygame.init()
+
+# Screen size
+WIDTH, HEIGHT = 900, 600
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Code Rain")
+
+clock = pygame.time.Clock()
+
+# Font
+font = pygame.font.SysFont("Consolas", 24, bold=True)
+
+# Characters
+chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()[]{}"
+
+# Columns
+columns = WIDTH // 20
+drops = []
+
+for i in range(columns):
+    drops.append(random.randint(-30, 0))
+
+running = True
+
+while running:
+
+    # Exit
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Fade effect
+    fade = pygame.Surface((WIDTH, HEIGHT))
+    fade.set_alpha(35)
+    fade.fill((0, 0, 0))
+    screen.blit(fade, (0, 0))
+
+    # Draw characters
+    for i in range(columns):
+        char = random.choice(chars)
+        text = font.render(char, True, (0, 255, 70))
+
+        x = i * 20
+        y = drops[i] * 20
+
+        screen.blit(text, (x, y))
+
+        drops[i] += 1
+
+        if y > HEIGHT and random.random() > 0.97:
+            drops[i] = random.randint(-20, 0)
+
+    pygame.display.update()
+    clock.tick(30)
+
+pygame.quit()
