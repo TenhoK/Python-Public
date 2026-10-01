@@ -1,0 +1,166 @@
+import json
+
+# TALLENNUS (EI VALMIS VIELÄ)
+def TallennaPeli():
+    esineidenNimet = []
+    for esine in pelaaja.esineet:
+        esineidenNimet.append(esine.nimi)
+
+    tallennus = {"nimi": pelaaja.nimi, "sijainti": pelaaja.sijainti.nimi, "energia": pelaaja.energia, "päästöt": pelaaja.päästöt, "esineet": esineidenNimet}
+    with open(f"tallennus_{pelaaja.nimi}.json", "w") as tiedosto:
+        json.dump(tallennus, tiedosto)
+    with open(f"tallennus_{pelaaja.nimi}.json", "r") as tiedosto:
+        dataLuettu = json.load(tiedosto)
+
+    # PRINTTAA TALLENNETUT TIEDOT
+    print(f"Pelaaja: {dataLuettu["nimi"]}, Sijainti: {dataLuettu["sijainti"]}, Energia: {dataLuettu["energia"]}%, Päästöt: {dataLuettu["päästöt"]}g CO2, Esineet: {dataLuettu["esineet"]}")
+
+
+# KYSYY NIMEN JA IÄN. JOS ALLE 12V NII EI ANNA PELATA
+print("")
+name = input("Mikä nimesi on? ")
+print("")
+print("Hei", name,"!")
+print("")
+age = int(input("Kuinka vanha olet? "))
+print("")
+print("Olet", age, "vuotta vanha!")
+if age < 12:
+    print("Olet liian nuori pelaamaan tätä peliä :(")
+    exit()
+else:
+    print("Tervetuloa pelaamaan", name,"!")
+
+# PELAAJA CLASS
+class Pelaaja():
+    def __init__(self, nimi, esineet, sijainti):
+        self.nimi = nimi
+        self.esineet = esineet
+        self.sijainti = sijainti
+        self.energia = 100
+        self.päästöt = 0
+
+    # LISÄÄ PELAAJALLE TAVAROITA
+    def LisääReppuun(self, uusiEsine):
+         # JOS ENERGIA JUOMA NIIN LISÄÄ 50 ENERGIAAN
+        if uusiEsine.nimi == "Energia Juoma":
+            self.energia += 50
+            print("")
+            print(f"Energiaa lisätty! Enegiaa nyt: {self.energia}%")
+        self.esineet.append(uusiEsine)
+
+    # LIIKUTTAA UUTEEN SIJAINTIIN JA MIINUSTAA ENERGIAA JA LISÄÄ PÄÄSTÖJÄ KULKUNEUVON PERUSTEELLA
+    def Liiku(self, paikka):
+        self.sijainti = paikka
+        self.energia -= 20
+        self.päästöt += paikka.päästöt
+        # JOKA LIIKKUMISEN JÄLKEEN ENERGIA PRINTATAAN
+        print("")
+        print(f"Energiaa jäljellä: {self.energia}%")
+        # JOS PÄÄSTÖJÄ KERTYNY NIIN NE PRINTATAAN
+        if self.päästöt > 0:
+            print(f"Päästöjä yhteensä: {self.päästöt}g CO2")
+
+
+# PAIKKA CLASS
+class Paikka():
+    def __init__(self, nimi, esine, seuraavatPaikat, vaatii=None, päästöt=0):
+        self.nimi = nimi
+        self.esine = esine
+        self.seuraavatPaikat = seuraavatPaikat
+        self.vaatii = vaatii
+        self.päästöt = päästöt
+
+# ESINE CLASS
+class Esine():
+    def __init__(self, nimi):
+        self.nimi = nimi
+
+# LUODAAN ESINEET
+puhelin = Esine("Puhelin")
+avaimet = Esine("Avaimet")
+lompakko = Esine("Lompakko")
+energiaJuoma1 = Esine("Energia Juoma")
+energiaJuoma2 = Esine("Energia Juoma")
+
+# LUODAAN PAIKAT
+koulu = Paikka("Koulu", None, [], vaatii=avaimet)
+kauppa = Paikka("Kauppa", energiaJuoma2, [koulu], vaatii=lompakko)
+juna = Paikka("Juna", None, [koulu, kauppa], vaatii=puhelin)
+dösä = Paikka("Dösä", None, [koulu, kauppa], vaatii=puhelin, päästöt=1300)
+pasila = Paikka("Pasila", None, [juna])
+steissi = Paikka("Steissi", energiaJuoma1, [dösä, juna])
+taksi = Paikka("Taksi", None, [steissi, pasila], vaatii=lompakko, päästöt=200)
+ratikka = Paikka("Spora", None, [steissi, dösä])
+eteinen = Paikka("Eteinen", avaimet, [ratikka, taksi])
+olohuone = Paikka("Olkkari", lompakko, [eteinen])
+koti = Paikka("Koti", puhelin, [olohuone, eteinen]) # MAKKARI
+
+# PELAAJA LUODAAN
+pelaaja = Pelaaja(name, [], koti)
+
+# TÄMÄ FUNKTIO LIIKUTTAA PELAAJAA JA TARKISTAA ONKO KERÄTTÄVIÄ ESINEITÄ JA ONKO PELAAJALLA VAADITUT ESINEET ETENEMISEEN
+def LiikutaPelaajaa():
+    
+    # TÄMÄ HOITAA KERÄÄMIS LOGIIKAN JOS HUONEESSA ON ESINE
+    if pelaaja.sijainti.esine != None:
+        print("")
+        vastaus = input(f"Täätlä löytyi esine: {pelaaja.sijainti.esine.nimi}. Kerätäänkö? y or n ")
+        if vastaus == "y":
+            print(f"Keräsit esineen: {pelaaja.sijainti.esine.nimi}")
+            pelaaja.LisääReppuun(pelaaja.sijainti.esine)
+            pelaaja.sijainti.esine = None
+            TallennaPeli() # TALLENNUS
+        if vastaus == "n":
+            print("")
+    
+    # KYSYY MIHIN MENNÄÄN SEURAAVAKSI
+    print("")
+    print("Mihin mennään seuraavaksi?")
+    for paikka in pelaaja.sijainti.seuraavatPaikat:
+        print("-", paikka.nimi)
+
+     # SEURAAVAN PAIKAN VALINTA
+    seuraavaPaikka = input("Valitse Vaihtoehto: ")
+    for paikka in pelaaja.sijainti.seuraavatPaikat:
+        if seuraavaPaikka == paikka.nimi:
+             # KATSOO ONKO PELAAJALLA VAADITTU ESINE
+            if paikka.vaatii != None and paikka.vaatii not in pelaaja.esineet:
+                print(f"Et pääse paikkaan {paikka.nimi}, koska sinulta puuttuu: {paikka.vaatii.nimi}")
+                print("HÄVISIT PELIN! Et päässy ajoissa kouluun")
+                return True
+            else:
+                print(f"Valitsit: {paikka.nimi}")
+                pelaaja.Liiku(paikka)
+                TallennaPeli() # TALLENNUS
+                # PELAAJA HÄVII JOS ENERGIA LOPPUU
+                if pelaaja.energia <= 0:
+                    print("HÄVISIT PELIN! Energia loppui ennen kuin pääsit kouluun")
+                    return True
+    
+    return False
+
+
+
+# PELI ALKAA
+print("")
+print("")
+print(f"{pelaaja.nimi}n koulumatka peli")
+print("")
+print("Asut Helsingin Katajanokalla ja Karamalmille on pitkä ja monimutkainen matka.")
+print("Heräät makkarista ja on taas aikainen aamu ja aika lähteä kouluun...")
+print("Tehtäväsi on päästä kouluun ennen kuin energiasi loppuu ja tuottaa mahdollisimman vähän CO2 päästöjä")
+print("")
+
+# TÄMÄ LOOPPII HOITAAN LIIKKUMISEN SIIHEN ASTI ENNENKUN PELAAJA SIJAINTI EI OLE KOULU
+while True:
+
+    if pelaaja.sijainti != koulu:
+        PeliOhi = LiikutaPelaajaa()
+        if PeliOhi:
+            break
+    else:
+        print("")
+        print("")
+        print(f"Pääsit kouluun! Voitit peli {pelaaja.nimi}! Energiaa opiskeluihin jäi {pelaaja.energia}% ja päästöjä matkalla syntyi: {pelaaja.päästöt}g CO2")
+        break
