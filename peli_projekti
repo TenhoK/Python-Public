@@ -152,7 +152,7 @@ print("Heräät makkarista ja on taas aikainen aamu ja aika lähteä kouluun..."
 print("Tehtäväsi on päästä kouluun ennen kuin energiasi loppuu ja tuottaa mahdollisimman vähän CO2 päästöjä")
 print("")
 
-# TÄMÄ LOOPPII HOITAAN LIIKKUMISEN SIIHEN ASTI ENNENKUN PELAAJA SIJAINTI EI OLE KOULU
+# TÄMÄ LOOPPII HOITAAN LIIKKUMISEN SIIHEN ASTI KUN PELAAJA SIJAINTI EI OLE KOULU
 while True:
 
     if pelaaja.sijainti != koulu:
