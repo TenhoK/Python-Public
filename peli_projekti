@@ -13,7 +13,7 @@ def TallennaPeli():
         dataLuettu = json.load(tiedosto)
 
     # PRINTTAA TALLENNETUT TIEDOT
-    print(f"Pelaaja: {dataLuettu["nimi"]}, Sijainti: {dataLuettu["sijainti"]}, Energia: {dataLuettu["energia"]}%, Päästöt: {dataLuettu["päästöt"]}g CO2, Esineet: {dataLuettu["esineet"]}")
+    #print(f"Pelaaja: {dataLuettu["nimi"]}, Sijainti: {dataLuettu["sijainti"]}, Energia: {dataLuettu["energia"]}%, Päästöt: {dataLuettu["päästöt"]}g CO2, Esineet: {dataLuettu["esineet"]}")
 
 
 # KYSYY NIMEN JA IÄN. JOS ALLE 12V NII EI ANNA PELATA
