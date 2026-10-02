@@ -1,6 +1,6 @@
 import json
 
-# TALLENNUS (EI VALMIS VIELÄ)
+# TALLENNUS
 def TallennaPeli():
     esineidenNimet = []
     for esine in pelaaja.esineet:
