@@ -90,7 +90,7 @@ juna = Paikka("Juna", None, [koulu, kauppa], vaatii=puhelin)
 dösä = Paikka("Dösä", None, [koulu, kauppa], vaatii=puhelin, päästöt=1300)
 pasila = Paikka("Pasila", None, [juna])
 steissi = Paikka("Steissi", energiaJuoma1, [dösä, juna])
-taksi = Paikka("Taksi", None, [steissi, pasila], vaatii=lompakko, päästöt=200)
+taksi = Paikka("Taksi", None, [steissi, pasila], vaatii=lompakko, päästöt=500)
 ratikka = Paikka("Spora", None, [steissi, dösä])
 eteinen = Paikka("Eteinen", avaimet, [ratikka, taksi])
 olohuone = Paikka("Olkkari", lompakko, [eteinen])
@@ -127,7 +127,7 @@ def LiikutaPelaajaa():
              # KATSOO ONKO PELAAJALLA VAADITTU ESINE
             if paikka.vaatii != None and paikka.vaatii not in pelaaja.esineet:
                 print(f"Et pääse paikkaan {paikka.nimi}, koska sinulta puuttuu: {paikka.vaatii.nimi}")
-                print("HÄVISIT PELIN! Et päässy ajoissa kouluun")
+                print("HÄVISIT PELIN! Sinulta puuttui vaadittava esine")
                 return True
             else:
                 print(f"Valitsit: {paikka.nimi}")
