@@ -30,7 +30,7 @@ def PrinttaaTallennetutuTiedot(dataLuettu):
 
 # KANSIO
 kansio = os.path.dirname(os.path.abspath(__file__))
-# LUKEE TIEDOSTON
+# LUKEE TIEDOSTON KANSIOSTA
 def LueTiedosto(tiedostonNimi):
     polku = os.path.join(kansio, tiedostonNimi)
     try:
@@ -217,3 +217,4 @@ while True:
         print("")
         print(f"Pääsit kouluun! Voitit peli {pelaaja.nimi}! Energiaa opiskeluihin jäi {pelaaja.energia}% ja päästöjä matkalla syntyi: {pelaaja.päästöt}g CO2")
         break
+
