@@ -24,13 +24,13 @@ Peli etenee silmukassa. Jokaisella kierroksella:
 
 **Toiminnallisuudet**
 
-1. Pelaajan nimen ja iän kysyminen (alle 12-vuotiaat eivät voi pelata)
+1. Pelaajan nimen ja iän kysyminen. alle 12-vuotiaat eivät voi pelata
 2. Esittelyteksti ja ohjeet luetaan tiedostoista intro.txt ja ohjeet.txt
 3. Esineiden kerääminen reppuun
-4. Energian kuluminen joka siirrolla, energiajuoma palauttaa energiaa
+4. Energian kuluminen joka siirrolla, energiajuoma palauttaa energiaa 50%
 5. Esinevaatimukset kulkuvälineille, kaupalle ja koululle
 6. Päästöjen laskeminen ja näyttäminen
-7. Pelin tallennus ja jatkaminen tallennuksesta (JSON-tiedosto pelaajan nimellä)
+7. Pelin tallennus ja jatkaminen tallennuksesta toimii JSON-tiedostolla pelaajan nimellä
 8. Voitto- ja häviöilmoitukset
 
 **Kestävä kehitys**
