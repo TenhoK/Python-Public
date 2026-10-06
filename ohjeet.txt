@@ -1,0 +1,7 @@
+OHJEET
+
+- Valitse paikka kirjoittamalla sen nimi tarkalleen.
+- Voit kerätä esineitä vastaamalla y.
+- Junaan ja dösään tarvitset puhelimen, taksiin ja kauppa lompakon ja kouluun avaimet.
+- Jokainen siirto kuluttaa energiaa. Energiajuoma antaa lisää.
+- Taksi ja dösä tuottavat enemmän päästöjä kuin spora ja juna.
