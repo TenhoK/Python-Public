@@ -29,7 +29,7 @@ def PrinttaaTallennetutuTiedot(dataLuettu):
     print(f"Pelaaja: {dataLuettu["nimi"]}, Sijainti: {dataLuettu["sijainti"]}, Energia: {dataLuettu["energia"]}%, Päästöt: {dataLuettu["päästöt"]}g CO2, Esineet: {dataLuettu["esineet"]}")
 
 # KANSIO
-kansio = os.path.dirname(os.path.abspath(__file__))
+kansio = "/Users/tenho/Desktop/python-harjoitukset.py/peliprojekti"
 # LUKEE TIEDOSTON KANSIOSTA
 def LueTiedosto(tiedostonNimi):
     polku = os.path.join(kansio, tiedostonNimi)
@@ -53,6 +53,7 @@ if age < 12:
     exit()
 else:
     print("Tervetuloa pelaamaan", name,"!")
+    print("")
 
 # PELAAJA CLASS
 class Pelaaja():
@@ -119,12 +120,15 @@ eteinen = Paikka("Eteinen", avaimet, [ratikka, taksi])
 olohuone = Paikka("Olkkari", lompakko, [eteinen])
 koti = Paikka("Koti", puhelin, [olohuone, eteinen]) # MAKKARI
 
-# LISTAT LATAUSTA VARTEN
+# LISTAT PELIN LATAUSTA VARTEN
 kaikkiEsineet = [puhelin, avaimet, lompakko, energiaJuoma1, energiaJuoma2]
 kaikkiPaikat = [koti, olohuone, eteinen, ratikka, taksi, steissi, pasila, dösä, juna, kauppa, koulu]
 
 # PELAAJA LUODAAN
 pelaaja = Pelaaja(name, [], koti)
+
+# PELIN ALOITUS BOOL JOKA VAIKUTTAA 
+aloita = False
 
 # TARKISTETAAN LÖYTYYKÖ VANHA TALLENNUS
 tallennettuData = LataaPeli(name)
@@ -132,6 +136,8 @@ if tallennettuData != None:
     print("")
     vastaus = input(f"Löytyi aiempi tallennus nimellä {name}. Haluatko jatkaa siitä mihin jäit? y or n ")
     if vastaus == "y":
+        
+        aloita == True
         # PALAUTETAAN SIJAINTI NIMEN PERUSTEELLA
         for paikka in kaikkiPaikat:
             if paikka.nimi == tallennettuData["sijainti"]:
@@ -200,10 +206,29 @@ def LiikutaPelaajaa():
     
     return False
 
+# OHJEET
+ohjeet = LueTiedosto("ohjeet.txt")
+
+# VALIKKO
+while aloita == False:
+    valinta = input("1. Aloita, 2. Ohjeet ")
+
+    if valinta == "1":
+        aloita = True
+    if valinta == "2":
+        print("")
+        print(ohjeet)
+        valinta = input("Aloitetaanko peli? y or n ")
+
+    if valinta == "y":
+        aloita = True
 
 # PELI ALKAA
+print("")
 intro = LueTiedosto("intro.txt")
-print(intro.replace("{nimi}", pelaaja.nimi))
+# JOS AIKAISEMPAA TALLENNUSTA EI OLE NIIN PRINTTAA INTRO TEXTIN
+if aloita == False:
+    print(intro.replace("{nimi}", pelaaja.nimi))
 
 # TÄMÄ LOOPPII HOITAAN LIIKKUMISEN SIIHEN ASTI KUN PELAAJA SIJAINTI EI OLE KOULU
 while True:
@@ -216,5 +241,6 @@ while True:
         print("")
         print("")
         print(f"Pääsit kouluun! Voitit peli {pelaaja.nimi}! Energiaa opiskeluihin jäi {pelaaja.energia}% ja päästöjä matkalla syntyi: {pelaaja.päästöt}g CO2")
+        print("")
         break
 
