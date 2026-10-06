@@ -127,7 +127,7 @@ kaikkiPaikat = [koti, olohuone, eteinen, ratikka, taksi, steissi, pasila, dösä
 # PELAAJA LUODAAN
 pelaaja = Pelaaja(name, [], koti)
 
-# PELIN ALOITUS BOOL JOKA VAIKUTTAA 
+# PELIN ALOITUS BOOL JOKA ALOITTAA PELIN ILMAN INTROA JOS TALLENNUS LÖYTYY
 aloita = False
 
 # TARKISTETAAN LÖYTYYKÖ VANHA TALLENNUS
@@ -137,7 +137,8 @@ if tallennettuData != None:
     vastaus = input(f"Löytyi aiempi tallennus nimellä {name}. Haluatko jatkaa siitä mihin jäit? y or n ")
     if vastaus == "y":
         
-        aloita == True
+        aloita == True # TALLENNUS LÖYTYI!
+
         # PALAUTETAAN SIJAINTI NIMEN PERUSTEELLA
         for paikka in kaikkiPaikat:
             if paikka.nimi == tallennettuData["sijainti"]:
