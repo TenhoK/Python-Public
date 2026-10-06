@@ -244,4 +244,3 @@ while True:
         print(f"Pääsit kouluun! Voitit peli {pelaaja.nimi}! Energiaa opiskeluihin jäi {pelaaja.energia}% ja päästöjä matkalla syntyi: {pelaaja.päästöt}g CO2")
         print("")
         break
-
