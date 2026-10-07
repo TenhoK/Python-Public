@@ -228,7 +228,7 @@ while aloita == False:
 print("")
 intro = LueTiedosto("intro.txt")
 # JOS AIKAISEMPAA TALLENNUSTA EI OLE NIIN PRINTTAA INTRO TEXTIN
-if aloita == False:
+if aloita == True:
     print(intro.replace("{nimi}", pelaaja.nimi))
 
 # TÄMÄ LOOPPII HOITAAN LIIKKUMISEN SIIHEN ASTI KUN PELAAJA SIJAINTI EI OLE KOULU
